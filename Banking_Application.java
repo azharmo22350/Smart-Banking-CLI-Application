@@ -8,10 +8,13 @@ public class Banking_Application{
     public static void main(String[] args)
     {
 
+        String[] CustomerNames =new String[0];
+        String[] CustomerIDs =new String[0];
          
         final String CLEAR = "\033[H\033[2J";
         final String COLOR_BLUE_BOLD = "\033[34;1m";
-        final String COLOR_RED_BOLD ="\033[31";
+        final String COLOR_RED_BOLD ="\u001B[1;31m"; 
+        final String COLOR_YELLOW_BOLD ="\u001B[1;33m" ;
         final String RESET = "\033[0m";
 
         final String DASHBOARD ="Welcome to Smart Banking" ;
@@ -40,7 +43,6 @@ public class Banking_Application{
 
         switch(screen)
         {
-
         case DASHBOARD:
 
                 System.out.println("[1]. Create new account");
@@ -68,12 +70,90 @@ public class Banking_Application{
                         break;}
                     default:System.exit(0);
                 }
+                break;
 
         case CREATE_NEW_ACCOUNT:
-               
-                
+
+             System.out.printf("Your ID generated SDB-%05d\n",(CustomerNames.length+1));
+             String ID =String.format("SDB-%05d\n",(CustomerNames.length+1));
+             String name;
+             boolean valid1;
+
+                do {
+                    
+                    System.out.print("Enter your name : ");
+                    name =scanner.nextLine().strip();
+
+                     if(name.isBlank())
+                    {
+                        System.out.printf("%sName can t be empty%s\n ",COLOR_RED_BOLD,RESET);
+                        valid1 =false ;
+                        continue;
+                    }
+                   
+                    valid1 =true ;
+                    for(int i=0; i<name.length(); i++)
+                    {
+                        if(  !( Character.isSpaceChar(name.charAt(i))  || Character.isLetter(name.charAt(i))))
+                        {
+                            System.out.printf("%sInvalid name%s\n",COLOR_RED_BOLD,RESET);
+                            valid1 =false;
+                            break ;
+                        }
+                    }
+
+                   
+
+                }
+
+                while(!valid1);
+
+                boolean valid2;
+
+                do
+                   {
+
+                    valid2=true ;
+                    System.out.print("Enter Initial Deposite : ") ;
+                    int InitialDeposite =scanner.nextInt();
+                    scanner.nextLine();
+
+                        if(InitialDeposite<5000)
+                        {
+                            System.out.printf("%sInsufficient balance%s",COLOR_RED_BOLD,RESET);
+                            valid2 =false;
+
+                        }
+                   } 
+
+                while(!valid2);
+
+                String[] newCustomerNames =new String[(CustomerNames.length+1)];
+                String[] newCustomerIDs =new String[(CustomerNames.length+1)] ;
+
+                for(int k=0; k<CustomerNames.length; k++)
+                {
+                    newCustomerNames[k] =CustomerNames[k] ;
+                    newCustomerIDs[k] =CustomerIDs[k];
+                }
+
+                newCustomerNames[newCustomerNames.length-1] =name ;
+                newCustomerIDs[newCustomerIDs.length-1] =ID ;
+
+                CustomerNames=newCustomerNames ;
+                CustomerIDs =newCustomerIDs;
 
 
+            System.out.printf("%syour ID and name added succesfully%s",COLOR_YELLOW_BOLD,RESET);
+            
+            System.out.print("Need to add another customer [Y/N]");
+
+           
+
+            break;
+
+        default : System.exit(0);
+                   
     }
 
     }

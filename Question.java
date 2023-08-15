@@ -30,6 +30,7 @@ public class Question {
 
 
      ID name has created succesfully
+      *  NAME AND MONEY
      neeed to enter another user
 
 -----------------------------------------------------------------------------------------------
