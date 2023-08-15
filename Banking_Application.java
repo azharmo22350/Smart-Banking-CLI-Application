@@ -10,6 +10,7 @@ public class Banking_Application{
 
         String[] CustomerNames =new String[0];
         String[] CustomerIDs =new String[0];
+        Double[] CustomerDeposites =new Double[0];
          
         final String CLEAR = "\033[H\033[2J";
         final String COLOR_BLUE_BOLD = "\033[34;1m";
@@ -51,7 +52,7 @@ public class Banking_Application{
                 System.out.println("[4]. Banking statement");
                 System.out.println("[5]. Transfer");
                 System.out.println("[6]. Delete Account");
-                System.out.println("[4]. Exit");
+                System.out.println("[7]. Exit");
                 System.out.print("Enter an option to continue > ");
                 int option = scanner.nextInt();
                 scanner.nextLine();
@@ -109,13 +110,13 @@ public class Banking_Application{
                 while(!valid1);
 
                 boolean valid2;
-
+                Double InitialDeposite;
                 do
                    {
 
                     valid2=true ;
                     System.out.print("Enter Initial Deposite : ") ;
-                    int InitialDeposite =scanner.nextInt();
+                    InitialDeposite =scanner.nextDouble();
                     scanner.nextLine();
 
                         if(InitialDeposite<5000)
@@ -130,25 +131,34 @@ public class Banking_Application{
 
                 String[] newCustomerNames =new String[(CustomerNames.length+1)];
                 String[] newCustomerIDs =new String[(CustomerNames.length+1)] ;
+                Double[] newCustomerDeposites =new Double[(CustomerDeposites.length+1)];
 
                 for(int k=0; k<CustomerNames.length; k++)
                 {
                     newCustomerNames[k] =CustomerNames[k] ;
                     newCustomerIDs[k] =CustomerIDs[k];
+                    newCustomerDeposites[k] =CustomerDeposites[k];
                 }
 
                 newCustomerNames[newCustomerNames.length-1] =name ;
                 newCustomerIDs[newCustomerIDs.length-1] =ID ;
+                newCustomerDeposites[newCustomerDeposites.length-1]=InitialDeposite ;
 
                 CustomerNames=newCustomerNames ;
                 CustomerIDs =newCustomerIDs;
+                CustomerDeposites =newCustomerDeposites;
 
 
-            System.out.printf("%syour ID and name added succesfully%s",COLOR_YELLOW_BOLD,RESET);
+            System.out.printf("%syour ID and name added succesfully\n%s",COLOR_YELLOW_BOLD,RESET);
+
+            System.out.printf("Your Name  is %s and Account balance is Rs.%,10.2f \n", name,InitialDeposite);
             
             System.out.print("Need to add another customer [Y/N]");
-
-           
+            if(scanner.nextLine().toUpperCase().equals("N")) 
+            {
+                screen=DASHBOARD;
+                break;
+            }
 
             break;
 
