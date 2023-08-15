@@ -151,7 +151,7 @@ public class Banking_Application{
 
             System.out.printf("%syour ID and name added succesfully\n%s",COLOR_YELLOW_BOLD,RESET);
 
-            System.out.printf("Your Name  is %s and Account balance is Rs.%,10.2f \n", name,InitialDeposite);
+            System.out.printf("Your Name  is %s and Account balance is Rs.%,.2f \n", name,InitialDeposite);
             
             System.out.print("Need to add another customer [Y/N]");
             if(scanner.nextLine().toUpperCase().equals("N")) 
