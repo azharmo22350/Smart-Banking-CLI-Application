@@ -11,11 +11,14 @@ public class Banking_Application{
         String[] CustomerNames =new String[0];
         String[] CustomerIDs =new String[0];
         Double[] CustomerDeposites =new Double[0];
+
+        String[][] CustomerDetails =new String[0][];
          
         final String CLEAR = "\033[H\033[2J";
         final String COLOR_BLUE_BOLD = "\033[34;1m";
         final String COLOR_RED_BOLD ="\u001B[1;31m"; 
         final String COLOR_YELLOW_BOLD ="\u001B[1;33m" ;
+        final String COLOR_GREEN_BOLD ="\u001B[1;32m" ;
         final String RESET = "\033[0m";
 
         final String DASHBOARD ="Welcome to Smart Banking" ;
@@ -129,24 +132,27 @@ public class Banking_Application{
 
                 while(!valid2);
 
-                String[] newCustomerNames =new String[(CustomerNames.length+1)];
-                String[] newCustomerIDs =new String[(CustomerNames.length+1)] ;
-                Double[] newCustomerDeposites =new Double[(CustomerDeposites.length+1)];
+             
+
+                String[][] newCustomerDetails =new String[(CustomerDetails.length+1)][3];
 
                 for(int k=0; k<CustomerNames.length; k++)
                 {
-                    newCustomerNames[k] =CustomerNames[k] ;
-                    newCustomerIDs[k] =CustomerIDs[k];
-                    newCustomerDeposites[k] =CustomerDeposites[k];
+                   
+
+                    newCustomerDetails[k] =CustomerDetails[k] ;
                 }
 
-                newCustomerNames[newCustomerNames.length-1] =name ;
-                newCustomerIDs[newCustomerIDs.length-1] =ID ;
-                newCustomerDeposites[newCustomerDeposites.length-1]=InitialDeposite ;
+               
+                newCustomerDetails[newCustomerDetails.length-1][0] =name ;
+                newCustomerDetails[newCustomerDetails.length-1][1] =ID ;
+                newCustomerDetails[newCustomerDetails.length-1][2]=String.valueOf(InitialDeposite) ;
 
-                CustomerNames=newCustomerNames ;
-                CustomerIDs =newCustomerIDs;
-                CustomerDeposites =newCustomerDeposites;
+                
+
+
+                CustomerDetails =newCustomerDetails ;
+         
 
 
             System.out.printf("%syour ID and name added succesfully\n%s",COLOR_YELLOW_BOLD,RESET);
@@ -162,6 +168,10 @@ public class Banking_Application{
 
             break;
 
+        case DELETE_ACCOUNT:
+         break ;
+        
+        
         default : System.exit(0);
                    
     }

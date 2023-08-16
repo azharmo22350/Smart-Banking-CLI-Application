@@ -41,10 +41,10 @@ public class Question {
           *Invalid format
           *not found
 
-
-     current balance : Rs 27,000.00
+     Display
+          *current balance : Rs 27,000.00
      Deposite Amount : -------------- min =500
-
+     Display 
      new balance : Rs. 33,000.00
 
      Do u want to continue (y/n)
