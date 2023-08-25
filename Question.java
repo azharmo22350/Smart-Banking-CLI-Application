@@ -4,13 +4,13 @@ public class Question {
     /* 
      * Welcome to Smart Banking
      
-      [1]create new account
-      [2]deposite
-      [3]withdrawals
+      [1]create new account -done
+      [2]deposite       -done
+      [3]withdrawals   -doen
       [4] Banking statement
       [5] Transfer
-      [6] delete account
-      [7] Exit
+      [6] delete account -done
+      [7] Exit   -done
 
       Enter Option
     
@@ -31,7 +31,7 @@ public class Question {
 
      ID name has created succesfully
       *  NAME AND MONEY
-     neeed to enter another user
+     neeed to enter another user      -done
 
 -----------------------------------------------------------------------------------------------
     // Deposite //
@@ -47,14 +47,14 @@ public class Question {
      Display 
      new balance : Rs. 33,000.00
 
-     Do u want to continue (y/n)
+     Do u want to continue (y/n)     -done
 
 ------------------------------------------------------------------------------------------
 
      //Withdraw//
 
      Enter accpount number : ------------------
-     do u want add new account(y/n)
+     do u want add new account(y/n)                     -not clear
 
      withdraw amount : -------------------  min 100(withdrawals) but cant be reach below Rs. 500(insufficent balance)
 
@@ -74,6 +74,7 @@ public class Question {
             *min 200 can transfer
             *min acc balance -500
             *2% fee deduct from from a/c number
+            
     new from Account balance :
     new to account balance : 
 
@@ -106,6 +107,8 @@ public class Question {
 
     a/c has been deleted suuccsfully
     do u want to continue(y/n)
+
+    
 
 
 

@@ -1,6 +1,13 @@
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 
+
+
 public class Banking_Application{
+
+    public static final String COLOR_RED_BOLD ="\u001B[1;31m"; 
+    public static final String RESET = "\033[0m";
     
     
     private static final Scanner scanner = new Scanner(System.in);
@@ -8,22 +15,20 @@ public class Banking_Application{
     public static void main(String[] args)
     {
 
-        String[] CustomerNames =new String[0];
-        String[] CustomerIDs =new String[0];
-        Double[] CustomerDeposites =new Double[0];
+       
 
         String[][] CustomerDetails =new String[0][];
          
         final String CLEAR = "\033[H\033[2J";
         final String COLOR_BLUE_BOLD = "\033[34;1m";
-        final String COLOR_RED_BOLD ="\u001B[1;31m"; 
+        
         final String COLOR_YELLOW_BOLD ="\u001B[1;33m" ;
         final String COLOR_GREEN_BOLD ="\u001B[1;32m" ;
-        final String RESET = "\033[0m";
+        
 
         final String DASHBOARD ="Welcome to Smart Banking" ;
         final String  CREATE_NEW_ACCOUNT= "create new account";
-        final String DEPOSITE= "deposite";
+        final String DEPOSITE= "deposite";  
         final String WITHDRAWALS = "withdrawals";
         final String BANKING_STATEMENT = "Banking statement";
         final String TRANSFER = "Transfer";
@@ -78,80 +83,30 @@ public class Banking_Application{
 
         case CREATE_NEW_ACCOUNT:
 
-             System.out.printf("Your ID generated SDB-%05d\n",(CustomerNames.length+1));
-             String ID =String.format("SDB-%05d\n",(CustomerNames.length+1));
-             String name;
-             boolean valid1;
-
-                do {
-                    
-                    System.out.print("Enter your name : ");
-                    name =scanner.nextLine().strip();
-
-                     if(name.isBlank())
-                    {
-                        System.out.printf("%sName can t be empty%s\n ",COLOR_RED_BOLD,RESET);
-                        valid1 =false ;
-                        continue;
-                    }
-                   
-                    valid1 =true ;
-                    for(int i=0; i<name.length(); i++)
-                    {
-                        if(  !( Character.isSpaceChar(name.charAt(i))  || Character.isLetter(name.charAt(i))))
-                        {
-                            System.out.printf("%sInvalid name%s\n",COLOR_RED_BOLD,RESET);
-                            valid1 =false;
-                            break ;
-                        }
-                    }
-
-                   
-
-                }
-
-                while(!valid1);
-
-                boolean valid2;
-                Double InitialDeposite;
-                do
-                   {
-
-                    valid2=true ;
-                    System.out.print("Enter Initial Deposite : ") ;
-                    InitialDeposite =scanner.nextDouble();
-                    scanner.nextLine();
-
-                        if(InitialDeposite<5000)
-                        {
-                            System.out.printf("%sInsufficient balance%s",COLOR_RED_BOLD,RESET);
-                            valid2 =false;
-
-                        }
-                   } 
-
-                while(!valid2);
+            System.out.printf("Your ID generated SDB-%05d\n",(CustomerDetails.length+1));
+            String ID =String.format("SDB-%05d",(CustomerDetails.length+1));
+            String name =ValidUserName();  
+            Double InitialDeposite =Deposite(screen);
 
              
 
-                String[][] newCustomerDetails =new String[(CustomerDetails.length+1)][3];
+            String[][] newCustomerDetails =new String[(CustomerDetails.length+1)][3];
 
-                for(int k=0; k<CustomerNames.length; k++)
-                {
-                   
-
-                    newCustomerDetails[k] =CustomerDetails[k] ;
-                }
-
-               
-                newCustomerDetails[newCustomerDetails.length-1][0] =name ;
-                newCustomerDetails[newCustomerDetails.length-1][1] =ID ;
-                newCustomerDetails[newCustomerDetails.length-1][2]=String.valueOf(InitialDeposite) ;
-
+            for(int k=0; k<CustomerDetails.length; k++)
+            {
                 
+                newCustomerDetails[k] =CustomerDetails[k] ;
+            }
+
+            
+            newCustomerDetails[newCustomerDetails.length-1][0] =name ;
+            newCustomerDetails[newCustomerDetails.length-1][1] =ID ;
+            newCustomerDetails[newCustomerDetails.length-1][2]=String.valueOf(InitialDeposite) ;
+
+            
 
 
-                CustomerDetails =newCustomerDetails ;
+            CustomerDetails =newCustomerDetails ;
          
 
 
@@ -168,11 +123,10 @@ public class Banking_Application{
 
             break;
 
-        case DELETE_ACCOUNT:
-         break ;
         
-        
-        default : System.exit(0);
+          
+                
+    default : System.exit(0);
                    
     }
 
@@ -182,5 +136,189 @@ public class Banking_Application{
         
         
     }
+
+
+    public static String Resume()
+    {
+        System.out.print("Do u want to continue [Y/N] : ");
+        if (scanner.nextLine().toUpperCase().equals("N"))
+        {
+            return "Welcome to Smart Banking";
+        }
+        else{
+            return "deposite";
+        }
+        
+    }
+
+    public static String ValidUserName()
+    {
+            String name;
+            boolean valid1;
+
+            do {
+
+                valid1 =true;
+                
+                System.out.print("Enter your name : ");
+                name =scanner.nextLine().strip();
+
+                    if(name.isBlank())
+                {
+                    System.out.printf("%sName can t be empty%s\n ",COLOR_RED_BOLD,RESET);
+                    valid1 =false ;
+                    continue;
+                }
+                
+                valid1 =true ;
+                for(int i=0; i<name.length(); i++)
+                {
+                    if(  !( Character.isSpaceChar(name.charAt(i))  || Character.isLetter(name.charAt(i))))
+                    {
+                        System.out.printf("%sInvalid name%s\n",COLOR_RED_BOLD,RESET);
+                        valid1 =false;
+                        break ;
+                    }
+                }
+
+                
+
+            }
+
+            while(!valid1);
+
+            return name;
+
+    }
+
+
+    public static String ValidAccountNumber()
+    {
+        boolean valid3 =true;
+        String AccountNumber;
+
+        do{
+
+                    valid3=true ;
+                    System.out.print("Enter your account Number : ");
+                    AccountNumber =scanner.nextLine().strip();
+
+                    if(!AccountNumber.startsWith("SDB-"))
+                    {
+                        System.out.printf("%sA/C starts with SDB-%s\n",COLOR_RED_BOLD,RESET);
+                        valid3=false ;
+                        continue;
+                        
+                        
+                    }
+                    if(AccountNumber.isBlank())
+                    {
+                        System.out.printf("%sA/C can t be Empty%s\n",COLOR_RED_BOLD,RESET);
+                        valid3=false;
+                        continue;
+                    }
+
+                    String numpart = AccountNumber.substring(4);
+
+                    for(int j=0; j< numpart.length();j++)
+                    {
+
+                        if(   !Character.isDigit(numpart.charAt(j))  || Character.isSpaceChar(numpart.charAt(j))  )
+                        {
+                                System.out.printf("%sInvalid Account Number %s\n",COLOR_RED_BOLD,RESET);
+                                valid3=false;
+                                break;
+
+                        }
+                    }
+
+                }
+
+            while(!valid3);
+
+            return AccountNumber;
+
+    }
+
+    public static Double Deposite(String screen)
+    {
+        boolean valid2;
+        Double Deposites;
+
+        int MinimumValue =0;
+
+        if(screen=="deposite")
+        {
+           MinimumValue =500;
+        }
+        else if(screen =="create new account")
+        {
+           MinimumValue =5000;
+        }
+
+        
+                do
+                   {
+
+                    valid2=true ;
+                    System.out.print("Enter Initial Deposite : ") ;
+                    Deposites =scanner.nextDouble();
+                    scanner.nextLine();
+
+                        if(Deposites<MinimumValue)
+                        {
+                            System.out.printf("%sInsufficient balance%s\n",COLOR_RED_BOLD,RESET);
+                            valid2 =false;
+
+                        }
+                   } 
+
+                while(!valid2);
+
+        return Deposites;
+    }
+
+    public static Double FindAccountbalance(String AccountNumber, String[][] CustomerDetails)
+    {
+
+        int index=0 ;
+        for (int i=0;i<CustomerDetails.length;i++)
+        {
+            
+            if(CustomerDetails[i][1].equals(AccountNumber))
+            {
+                
+                index=i;
+                break;
+            }
+        }
+
+        
+
+        return  Double.valueOf(CustomerDetails[index][2]) ;
+       
+    }
+
+    public static int FindIndexNumber(String AccountNumber, String[][] CustomerDetails)
+    {
+         int index=0 ;
+        for (int i=0;i<CustomerDetails.length;i++)
+        {
+            
+            if(CustomerDetails[i][1].equals(AccountNumber))
+            {
+                
+                index=i;
+                break;
+            }
+        }
+
+        return index ;
+
+
+    }
+    
+
+
 }
 
