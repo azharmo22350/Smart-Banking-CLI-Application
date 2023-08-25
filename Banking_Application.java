@@ -188,6 +188,37 @@ public class Banking_Application{
 
         break ;
 
+        case DEPOSITE:
+
+         String DepositeAC =ValidAccountNumber() ;
+  
+        int index=0 ;
+        for (int i=0;i<CustomerDetails.length;i++)
+        {
+            System.out.println("CustomerDetails[i][1] " +CustomerDetails[i][1]);
+            System.out.println("DepositeAC "+ DepositeAC);
+            if(CustomerDetails[i][1].equals(DepositeAC))
+            {
+                
+                index=i;
+                break;
+            }
+        }
+
+        System.out.printf("your account balance is : %s\n",CustomerDetails[index][2]);
+            
+            Double DepositeAmount =Deposite(screen);
+
+            System.out.println();
+            CustomerDetails[index][2] = String.valueOf( (Double.valueOf( CustomerDetails[index][2]) +DepositeAmount)  )   ;
+
+            System.out.printf("your new account balance is : %s\n",  CustomerDetails[index][2]);
+
+            screen =Resume();
+
+            break;
+
+    
           
                 
     default : System.exit(0);
