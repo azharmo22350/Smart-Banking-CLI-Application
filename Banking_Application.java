@@ -218,6 +218,40 @@ public class Banking_Application{
 
             break;
 
+    case WITHDRAWALS:
+       
+        String WithdrawAccountNumber =ValidAccountNumber();
+
+        boolean valid4=false;
+        do{
+        valid4=true;
+        System.out.print("Enter the withdraw amount : ") ;
+        Double WithdrawAmmount =scanner.nextDouble();
+        scanner.nextLine();
+
+        if(WithdrawAmmount<100)
+        {
+                System.out.printf("%sWithdrawals can t below 100 %s\n",COLOR_RED_BOLD,RESET);
+                valid4=false;
+                continue;
+        }
+        if((FindAccountbalance(WithdrawAccountNumber,CustomerDetails)-WithdrawAmmount) <500)
+            {
+                 System.out.printf("%sYour minimal account balance can t reach below 500 %s\n",COLOR_RED_BOLD,RESET);
+                 valid4=false;
+                continue;
+            }
+
+   
+
+        }
+
+        while(!valid4);
+
+        screen =Resume();
+
+        break;
+
     
           
                 
