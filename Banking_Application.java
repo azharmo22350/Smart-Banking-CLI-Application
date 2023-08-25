@@ -123,7 +123,71 @@ public class Banking_Application{
 
             break;
 
-        
+        case DELETE_ACCOUNT:
+
+                    
+            String DeleteAccountNumber =ValidAccountNumber();
+            boolean valid3 ;
+            int RemoveIndex =0;
+            for(int i=0; i< CustomerDetails.length; i++)
+            {
+                
+                if(CustomerDetails[i][1].equals(DeleteAccountNumber))
+                {
+                    System.out.printf("%sYour name is %s%s\n",COLOR_GREEN_BOLD,CustomerDetails[i][0],RESET) ;
+                    System.out.printf("%sYour Account balance is %s%s\n",COLOR_GREEN_BOLD,CustomerDetails[i][2],RESET) ;
+                    RemoveIndex =i;
+                    break ;
+                }
+            }
+
+
+            
+        System.out.print("Are u sure want delete [y/n] : ") ;
+
+        if(scanner.nextLine().toUpperCase().equals("N"))
+        {
+                screen =DASHBOARD;
+        }
+
+
+        String[][] newCustomerDetail =new String[(CustomerDetails.length-1)][3];
+
+        for(int k=0; k<CustomerDetails.length; k++)
+        {
+            if(k<RemoveIndex)
+            {
+                newCustomerDetail[k] =CustomerDetails[k]  ;
+            }
+            else if(k==RemoveIndex)
+            {
+            continue;
+            }
+            else
+            {
+            newCustomerDetail[k-1] =CustomerDetails[k]  ;
+            }
+        }
+
+            CustomerDetails =newCustomerDetail ;
+
+            for(int i=0; i< CustomerDetails.length; i++)
+              {
+
+                System.out.println(Arrays.toString(CustomerDetails[i]));
+
+              }
+                System.out.print("Do u want to continue [y/n] : ") ;
+
+               if(scanner.nextLine().toUpperCase().equals("N"))
+              {
+                    screen =DASHBOARD;
+             }
+         
+
+
+        break ;
+
           
                 
     default : System.exit(0);
