@@ -252,7 +252,51 @@ public class Banking_Application{
 
         break;
 
-    
+    case TRANSFER:
+
+
+        Double TransferAmmount;
+        String FromAccountNumber =ValidAccountNumber();
+        String ToAccountNumber=ValidAccountNumber();
+
+        System.out.printf("From Acccount number balance : %s\n" ,FindAccountbalance(FromAccountNumber,CustomerDetails));
+
+        System.out.printf("To Acccount number balance : %s\n" ,FindAccountbalance(ToAccountNumber,CustomerDetails));
+
+        do{
+            valid3=true;
+            System.out.printf("Enter your transfer ammount : ") ;
+            TransferAmmount =scanner.nextDouble();
+            scanner.nextLine();
+
+            if(TransferAmmount <200)
+            {
+                 System.out.printf("%sMinimum Transfer Ammount should be 200  %s\n",COLOR_RED_BOLD,RESET);
+                 valid3=false;
+                 continue;
+            }
+             if((FindAccountbalance(FromAccountNumber,CustomerDetails)-TransferAmmount) <500)
+             {
+                System.out.printf("%sInsufficeient Balance %s\n",COLOR_RED_BOLD,RESET);
+                valid3=false;
+                continue;
+             }
+        }
+
+        while(!valid3) ;
+
+        int indexFromTRansfer =FindIndexNumber(FromAccountNumber,CustomerDetails);
+        int indexToTRansfer =FindIndexNumber(ToAccountNumber,CustomerDetails);
+
+        CustomerDetails[indexFromTRansfer][2] = String.valueOf( (FindAccountbalance(FromAccountNumber,CustomerDetails)-TransferAmmount)*0.98) ;
+        CustomerDetails[indexToTRansfer][2] = String.valueOf( FindAccountbalance(ToAccountNumber,CustomerDetails)+TransferAmmount) ;
+
+        System.out.printf(" New From Acccount number balance : %s\n" ,FindAccountbalance(FromAccountNumber,CustomerDetails));
+
+        System.out.printf("New To Acccount number balance : %s\n" ,FindAccountbalance(ToAccountNumber,CustomerDetails));
+
+        Resume() ;
+        break;
           
                 
     default : System.exit(0);
